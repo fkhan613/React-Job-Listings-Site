@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const AddJobPage = () => {
+const AddJobPage = ({ addJobSubmit }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -11,26 +13,29 @@ const AddJobPage = () => {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
 
+  const navigate = useNavigate();
 
   const submitForm = (e) => {
-    e.preventDefault()
-    
-    const newJob = {
-        title,
-        type,
-        location,
-        description,
-        salary,
-        company:{
-            companyName,
-            companyDescription,
-            contactEmail,
-            contactPhone
-        }
-    }
+    e.preventDefault();
 
-    console.log(newJob);
-  }
+    const newJob = {
+      title,
+      type,
+      location,
+      description,
+      salary,
+      company: {
+        companyName,
+        companyDescription,
+        contactEmail,
+        contactPhone,
+      },
+    };
+
+    addJobSubmit(newJob)
+    return navigate('/jobs')
+    
+  };
   return (
     <section className="bg-indigo-50">
       <div className="container m-auto max-w-2xl py-24">
